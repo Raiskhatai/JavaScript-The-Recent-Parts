@@ -1,52 +1,74 @@
 /* sync vs async */
 
+// function ko async karne ke liye settimeout ka use kiya jata hey.
 // async with promisses.
 
-function check_inventory() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("inventory created...");
-      resolve();
-    }, 2000);
-  });
-}
+/* 1 */
+// let promisses = new Promise((resolve, reject) => {
+//   console.log("hi");
+// });
+// promisses.then();   // hi;  // promisses function ko call kiya is liye .
 
-function create_order() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("creating order...");
-      resolve();
-    }, 1000);
-  });
-}
+/* 2 */
+// let promisses = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     console.log("calculating...");
+//     resolve(2 + 5);
+//   }, 1000);
+// });
 
-function charging_payment() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("charging payment...");
-      resolve();
-    }, 2000);
-  });
-}
+// // then is higher order function. inside then (val)=>{} is callback argument. resolve is callback parameter.  resolve() means calling then ke andar wala argument function.
+// promisses.then((val) => {
+//   console.log(val);
+// });
 
-function send_invoice() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      console.log("sendinng invoice...");
-      resolve();
-    }, 1000);
-  });
-}
+/* 3 */
+// new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     console.log("async task 2");
+//     resolve();
+//   }, 2000);
+// }).then(() => console.log("async 2 resolved..."));
 
-function main() {
-  check_inventory()
-    .then(create_order)
-    .then(charging_payment)
-    .then(send_invoice);
-}
+/*  4 */
+// let promisses = new Promise(function (resolve, reject) {
+//   setTimeout(function () {
+//     resolve({ username: "chai", email: "chai@gmail.com" });
+//   }, 2000);
+// });
 
-main();
+// promisses.then(function (val) {
+//   console.log(val);
+// });
 
+/* 5 promise chain */
+// let promisses = new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     let error = false;
+//     if (!error) {
+//       resolve({ username: "sharukh", age: 12 });
+//     } else {
+//       reject("ERROR : wrong value");
+//     }
+//   }, 2000);
+// });
+// // promisses ka first then return kar rha or second wala parameter mey uska le rha yehi hey promise chain.
+// promisses
+//   .then((val) => {
+//     console.log(val); //  { username: 'sharukh', age: 12 }
+//     return val.username;
+//   })
+//   .then((username) => {
+//     console.log(username); //  sharukh
+//   })
+//   .catch((val) => {
+//     console.log(val); // ERROR : wrong value.;  //if agar hum catch ke syntax ko sahi write na kare tab unhandledPromiseRejection:error aati hey.
+//   });
+
+/* 6 */
+
+
+/* end of promise */
 // async funtion with settimeout.
 // async with settimeout function. jis function ko jayda time lag sakta hey usko 2 sec. jiska ko kum usko 1 sec.
 // async function with settimeout is not readable .
