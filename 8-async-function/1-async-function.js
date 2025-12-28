@@ -1,6 +1,40 @@
 /* sync vs async */
 
-// function ko async karne ke liye settimeout ka use kiya jata hey.
+// Synchronous (Sync): Tasks execute one by one, and the program waits for each task to finish.
+// Asynchronous (Async): Tasks execute without waiting, allowing the program to continue while results come later
+
+// async with async await function.
+// async function always return a promise.
+/* 1 */
+// async function greet() {
+//   return "hello";
+//     // both way are same.
+//   return new Promise((resolve,reject) => {
+//     resolve("hello");
+//   })
+// }
+// console.log(greet()); // Promise { 'hello' }
+// greet().then((val) => console.log(val)); // hello
+
+/* 2 */
+
+function wait() {
+  console.log("greet is loading...");
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log("hello ji");
+      resolve(); // yeh likhna imp the warna await ke baad ka code nhi chalta.
+    }, 2000);
+  });
+}
+
+async function asc() {
+  console.log("hello");
+  await wait();
+  console.log("good morning");
+}
+asc();
+// function ko async karne ke liye settimeout ka use kiya ja rha hey taki delay mile fetch api jesa hey.
 // async with promisses.
 
 /* 1 */
@@ -52,7 +86,7 @@
 //     }
 //   }, 2000);
 // });
-// // promisses ka first then return kar rha or second wala parameter mey uska le rha yehi hey promise chain.
+// // promisses ka first then return kar rha or second ka parameter mey uski return value le rha yehi hey. promise chain.
 // promisses
 //   .then((val) => {
 //     console.log(val); //  { username: 'sharukh', age: 12 }
@@ -65,8 +99,45 @@
 //     console.log(val); // ERROR : wrong value.;  //if agar hum catch ke syntax ko sahi write na kare tab unhandledPromiseRejection:error aati hey.
 //   });
 
-/* 6 */
+/* 6 promise with async await*/
 
+// let promisses = new Promise(function (resolve, reject) {
+//   setTimeout(() => {
+//     let error = false;
+//     if (!error) {
+//       resolve({ username: "shahrukh", password: 123 });
+//     } else {
+//       reject("ERROR : javascript went wrong");
+//     }
+//   }, 2000);
+// });
+
+/* 7 */
+
+// function greet() {
+//   return new Promise((resolve, reject) => {
+//     console.log("greet is loading...");
+//     setTimeout(() => {
+//       resolve("hello");
+//     }, 2000);
+//   });
+// }
+
+// greet().then((val) => {
+//   console.log(val);
+// });
+
+// //async await sidha error handle nhi kar sakta .
+// async function consume_prime() {
+//   try {
+//     let response = await promisses;
+//     console.log(response.password); // 123.
+//   } catch (error) {
+//     console.log(error); // ERROR : javascript went wrong;
+//   }
+// }
+
+// consume_prime();
 
 /* end of promise */
 // async funtion with settimeout.
